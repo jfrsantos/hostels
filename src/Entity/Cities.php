@@ -44,7 +44,7 @@ class Cities
 
     public function __construct()
     {
-        $this->products = new ArrayCollection();
+        $this->hostels = new ArrayCollection();
     }
 
     public function getId(): ?int

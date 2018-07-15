@@ -43,11 +43,9 @@ class Reviews
     private $content;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="hostel_id", type="integer", nullable=false)
+     * @ORM\ManyToOne(targetEntity="App\Entity\Hostels", inversedBy="reviews")
      */
-    private $hostelId;
+    private $hostel;
 
     public function getId(): ?int
     {
@@ -90,14 +88,14 @@ class Reviews
         return $this;
     }
 
-    public function getHostelId(): ?int
+    public function getHostel(): ?Hostels
     {
-        return $this->hostelId;
+        return $this->hostel;
     }
 
-    public function setHostelId(int $hostelId): self
+    public function setHostel(Hostels $hostel): self
     {
-        $this->hostelId = $hostelId;
+        $this->hostel = $hostel;
 
         return $this;
     }

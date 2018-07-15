@@ -12,12 +12,15 @@ use Doctrine\ORM\EntityRepository;
 
 class HostelsRepository extends EntityRepository
 {
-    public function findHostelsWithCity($cityId) {
+    public function findHostelsByCity($cityId) {
         return $this->createQueryBuilder('h')
             ->innerJoin('h.city', 'c')
             ->addSelect('c')
             ->andWhere('c.id = :id')
             ->setParameter('id', $cityId)
+            ->leftJoin('h.reviews', 'r')
+            ->addSelect('AVG(r.rating) as average_rating')
+            ->groupBy('h.id')
             ->getQuery()
             ->getResult();
     }

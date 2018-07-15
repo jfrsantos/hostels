@@ -19,7 +19,7 @@ class HostelController extends Controller
         $json = array();
 
         foreach ($hostels as $hostel) {
-            $hostelJson = array('id' => $hostel->getId(), 'name' => $hostel->getName(), 'street' => $hostel->getStreet(), 'city_name' => $hostel->getCity()->getName());
+            $hostelJson = array('id' => $hostel[0]->getId(), 'name' => $hostel[0]->getName(), 'street' => $hostel[0]->getStreet(), 'city_name' => $hostel[0]->getCity()->getName(), 'average_rating' => $hostel['average_rating']);
             array_push($json, $hostelJson);
         }
 
@@ -29,8 +29,7 @@ class HostelController extends Controller
     public function listByCity($cityId)
     {
         $repository = $this->getDoctrine()->getRepository(Hostels::class);
-        $hostels = $repository->findHostelsWithCity($cityId);
-
+        $hostels = $repository->findHostelsByCity($cityId);
         $json = $this->convertToJson($hostels);
 
         $response = new JsonResponse($json);

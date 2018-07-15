@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -46,6 +48,16 @@ class Hostels
      * @ORM\ManyToOne(targetEntity="App\Entity\Cities", inversedBy="hostels")
      */
     private $city;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Reviews", mappedBy="hostel")
+     */
+    private $reviews;
+
+    public function __construct()
+    {
+        $this->reviews = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -100,4 +112,11 @@ class Hostels
         return $this;
     }
 
+    /**
+     * @return Collection|Reviews[]
+     */
+    public function getReviews(): Collection
+    {
+        return $this->reviews;
+    }
 }
