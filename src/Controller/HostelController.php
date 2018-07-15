@@ -14,10 +14,18 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 class HostelController extends Controller
 {
+    /**
+     * Returns HostelsRepository
+     */
     private function getHostelsRepository() {
         return $this->getDoctrine()->getRepository(Hostels::class);
     }
 
+    /**
+     * Returns Hostel data as json
+     * @param mixed $hostels list of Hostels objects and average_rating
+     * @return array json formated
+     */
     private function convertToJson($hostels)
     {
         $json = array();
@@ -30,6 +38,10 @@ class HostelController extends Controller
         return $json;
     }
 
+    /**
+     * Endpoint to generate a JSON response with all the active hostels in a city.
+     * @link /hostels/active/{$cityId}
+     */
     public function listByCity($cityId)
     {
         $repository = $this->getHostelsRepository();
@@ -42,6 +54,10 @@ class HostelController extends Controller
         return $response;
     }
 
+    /**
+     * Endpoint to generate a JSON response with all the active hostels in a city with a minimum rating of 4
+     * @link /hostels/top/{$cityId}
+     */
     public function listTop($cityId) {
         $repository = $this->getHostelsRepository();
         $hostels = $repository->findTopHostelsByCity($cityId, 4);
