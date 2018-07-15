@@ -5,3 +5,4 @@
 city_list:
   path: /cities
   controller: App\Controller\CityController::list
+  methods: [GET]
