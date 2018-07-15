@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Hostels
  *
  * @ORM\Table(name="hostels", indexes={@ORM\Index(name="hostels.fk_hostels_cities_idx", columns={"city_id"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\HostelsRepository")
  */
 class Hostels
 {
@@ -43,11 +43,9 @@ class Hostels
     private $active;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="city_id", type="integer", nullable=false)
+     * @ORM\ManyToOne(targetEntity="App\Entity\Cities", inversedBy="hostels")
      */
-    private $cityId;
+    private $city;
 
     public function getId(): ?int
     {
@@ -90,17 +88,16 @@ class Hostels
         return $this;
     }
 
-    public function getCityId(): ?int
+    public function getCity(): ?Cities
     {
-        return $this->cityId;
+        return $this->city;
     }
 
-    public function setCityId(int $cityId): self
+    public function setCity(?Cities $city): self
     {
-        $this->cityId = $cityId;
+        $this->city = $city;
 
         return $this;
     }
-
 
 }

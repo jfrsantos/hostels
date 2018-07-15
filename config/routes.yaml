@@ -6,3 +6,7 @@ city_list:
   path: /cities
   controller: App\Controller\CityController::list
   methods: [GET]
+
+hostel_active_city:
+  path: /hostels/active/{cityId}
+  controller: App\Controller\HostelController::listByCity

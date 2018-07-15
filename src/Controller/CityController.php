@@ -24,8 +24,8 @@ class CityController extends Controller
         $json = array();
 
         foreach($cities as $city) {
-            $city_json = array('id' => $city->getId(), 'name' => $city->getName(), 'country_name' => $city->getCountryName());
-            array_push($json, $city_json);
+            $cityJson = array('id' => $city->getId(), 'name' => $city->getName(), 'country_name' => $city->getCountryName());
+            array_push($json, $cityJson);
         }
 
         return $json;
