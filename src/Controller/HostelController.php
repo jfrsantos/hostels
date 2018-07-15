@@ -14,6 +14,10 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 class HostelController extends Controller
 {
+    private function getHostelsRepository() {
+        return $this->getDoctrine()->getRepository(Hostels::class);
+    }
+
     private function convertToJson($hostels)
     {
         $json = array();
@@ -28,8 +32,19 @@ class HostelController extends Controller
 
     public function listByCity($cityId)
     {
-        $repository = $this->getDoctrine()->getRepository(Hostels::class);
+        $repository = $this->getHostelsRepository();
         $hostels = $repository->findHostelsByCity($cityId);
+        $json = $this->convertToJson($hostels);
+
+        $response = new JsonResponse($json);
+        $response->setEncodingOptions($response->getEncodingOptions() | JSON_PRETTY_PRINT);
+
+        return $response;
+    }
+
+    public function listTop($cityId) {
+        $repository = $this->getHostelsRepository();
+        $hostels = $repository->findTopHostelsByCity($cityId, 4);
         $json = $this->convertToJson($hostels);
 
         $response = new JsonResponse($json);
