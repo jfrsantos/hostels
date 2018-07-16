@@ -26,7 +26,7 @@ class HostelController extends Controller
      * @param mixed $hostels list of Hostels objects and average_rating
      * @return array json formated
      */
-    private function convertToJson($hostels)
+    public function convertToJson($hostels)
     {
         $json = array();
 
@@ -60,6 +60,7 @@ class HostelController extends Controller
      */
     public function listTop($cityId) {
         $repository = $this->getHostelsRepository();
+        // hostels from city with id=cityId and rating greater than or equal to 4
         $hostels = $repository->findTopHostelsByCity($cityId, 4);
         $json = $this->convertToJson($hostels);
 
