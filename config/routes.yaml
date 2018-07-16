@@ -11,8 +11,12 @@ hostel_active_city:
   path: /hostels/active/{cityId}
   controller: App\Controller\HostelController::listByCity
   methods: [GET]
+  requirements:
+    cityId: \d+
 
 hostel_top_city:
   path: /hostels/top/{cityId}
   controller: App\Controller\HostelController::listTop
   methods: [GET]
+  requirements:
+    cityId: \d+

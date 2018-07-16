@@ -18,7 +18,7 @@ class CityController extends Controller
      * Returns all the cities in the database
      * @return object[] returns an array of Cities objects
      */
-    private function getAllCities() {
+    public function getAllCities() {
         $repository = $this->getDoctrine()->getRepository(Cities::class);
         $cities = $repository->findAll();
         return $cities;
@@ -29,7 +29,7 @@ class CityController extends Controller
      * @param object[] $cities list of Cities objects
      * @return array json formated
      */
-    private function convertToJson($cities) {
+    public function convertToJson($cities) {
         $json = array();
 
         foreach($cities as $city) {
