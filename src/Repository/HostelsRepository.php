@@ -46,7 +46,7 @@ class HostelsRepository extends EntityRepository
             ->addSelect('c')
             ->andWhere('c.id = :id and h.active=TRUE')
             ->setParameter('id', $cityId)
-            ->leftJoin('h.reviews', 'r')
+            ->innerJoin('h.reviews', 'r')
             ->addSelect('AVG(r.rating) as average_rating')
             ->having('average_rating >= :rating')
             ->setParameter('rating', $rating)

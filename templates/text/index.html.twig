@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <h1 class="text-center">Readme</h1>
+
+        <p>This page will provide some insight on the steps taken to complete the challenge and how to run and test the
+            solution.</p>
+
+        <h3>Challenge</h3>
+
+        <p>As I was tasked with creating services for cities and hostels, I created two controllers: <code>CityController</code>
+            and <code>HostelController</code>, located on <code>src/Controller</code>.
+        </p>
+
+        <p>Since I would need to make queries on the cities and hostels tables, I used Doctrine to generate the entities
+            that would allow me to use the query builder and provide me with getters and setters for each of the fields.
+            The entities were generated onto the <code>src/Entity</code> folder. The query to find all entries in a
+            table is provided by Doctrine, which was used to get all the cities as required for the first endpoint.
+        </p>
+
+        <p>
+            However the other two endpoints required more complex queries. As such, I created the class
+            <code>HostelsRepository</code>, in the folder <code>src/Repository</code>, that extends <code>EntityRepository</code>
+            and assigned it as the repository
+            for <code>Hostels</code> objects. The two needed queries were very similar, changing only in the following:
+        <ul>
+            <li>Knowing all the active hostels from a city required a left join with reviews so it was possible to
+                calculate the average rating, but to also obtain the hostels without reviews.
+            </li>
+            <li>For the top hostels only the ones that had reviews were important, so an inner join was used. It also
+                has a condition for minimum average rating.
+            </li>
+        </ul>
+
+        The function that returns the top hostels receives a variable <code>rating</code> so it can be used in the
+        future for other features like a user defined filter by rating.
+        </p>
+
+        <p>A separate function <code>convertToJson()</code> was implemented on each controller, that would take the
+            result of the
+            queries and convert them to JSON format to be delivered by the service.</p>
+
+        <p>
+            Routing was made in the file <code>config/routes.yaml</code>, pointing each route to the corresponding
+            function in the controller.
+        </p>
+
+        <h3>Testing</h3>
+
+        <p>
+            I used PHPUnit to create some unit and functional tests. As this is only a sample application, I
+            used the provided database for the tests (I changed the rating of the review with id=4 to 3, to have one
+            hostel with an average rating of 4). On a real application a separate database should be used. I made unit
+            tests for each of the custom queries and for each of the <code>convertToJson()</code> functions with varying
+            values. I also made functional tests for each of the endpoints, checking the status code and the content of
+            the response.
+        </p>
+
+        <p>To run the test battery, execute the command <code>php bin/phpunit</code> on the project directory.</p>
+
+        <h3>Endpoints</h3>
+
+        <a href="/cities" target="_blank">/cities</a><br>
+        <a href="/hostels/active/1" target="_blank">/hostels/active/1</a><br>
+        <a href="/hostels/top/7" target="_blank">/hostels/top/7</a>
+    </div>
+{% endblock %}

@@ -46,3 +46,21 @@
 
 ## Unit / Functional tests
 Please do the unit and functional tests that you think that are important for this endpoints.
+
+
+##Challenge solution
+To run the solution it is recommended to use `composer update` instead of `composer install` as some additional packages where added.
+
+* run `composer update`
+* run `mkdir data`
+* run `chmod +x bin/console`
+* run `bin/console doctrine:database:create`
+* run `bin/console doctrine:migrations:migrate` - to prepare database.
+* run `bin/console server:run` - to start local web server
+
+The following endpoints are available:
+
+* `localhost:8000` - Contains information on what was implemented and why.
+* `localhost:8000/cities` - Endpoint that returns all cities
+* `localhost:8000/hostels/active/{cityId}` - Endpoint that returns all the active hostels from city with id {cityId}
+* `localhost:8000/hostels/top/{cityId}` - Endpoint that returns all active hostels from city with id {cityId} and average rating above or equal to 4.0
