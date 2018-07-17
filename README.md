@@ -48,7 +48,7 @@
 Please do the unit and functional tests that you think that are important for this endpoints.
 
 
-##Challenge solution
+## Challenge solution
 To run the solution it is recommended to use `composer update` instead of `composer install` as some additional packages where added.
 
 * run `composer update`
