@@ -64,3 +64,5 @@ The following endpoints are available:
 * `localhost:8000/cities` - Endpoint that returns all cities
 * `localhost:8000/hostels/active/{cityId}` - Endpoint that returns all the active hostels from city with id {cityId}
 * `localhost:8000/hostels/top/{cityId}` - Endpoint that returns all active hostels from city with id {cityId} and average rating above or equal to 4.0
+
+To run the test battery, run the command `php bin/phpunit` on the project folder.
